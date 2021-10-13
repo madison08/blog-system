@@ -13,26 +13,26 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) =>{
 
-    res.sendFile(path.resolve('views','index.html'))
+    res.render('index')
 
 })
 
 app.get('/contact', (req, res) =>{
 
-    res.sendFile(path.resolve('public','contact.html'))
+    res.render('contact')
 
 })
 
 app.get('/about', (req, res) =>{
 
-    res.sendFile(path.resolve('public','about.html'))
+    res.render('about')
 
 })
 
 
 app.get('/post', (req, res) =>{
 
-    res.sendFile(path.resolve('public','post.html'))
+    res.render('post')
 
 })
 
