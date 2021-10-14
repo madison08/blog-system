@@ -1,10 +1,11 @@
 const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
+const mongoose = require('mongoose')
 
 const app = express()
 
-
+// ejs templating
 app.set('view engine','ejs' )
 
 
@@ -44,3 +45,14 @@ app.listen(PORT, () =>{
     console.log(`[server] running http://localhost:${PORT}`)
 
 })
+
+
+// mongoose.connect('mongodb://localhost:27017/my_database', {useNewUrlParser: true}, () =>{
+
+//     console.log(`[database] running`)
+
+// })
+
+require('./test.js')
+
+
