@@ -15,9 +15,25 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get('/', (req, res) =>{
+app.get('/', async (req, res) =>{
 
-    res.render('index')
+
+    try{
+        const blogPosts = await Blog.find({})
+
+        console.log(blogPosts)
+
+        res.render('index', {
+            blogPosts
+        })
+
+    }catch(err){
+        console.log(err)
+    }
+
+
+
+    
 
 })
 
