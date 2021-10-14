@@ -17,6 +17,16 @@
                         <div class="site-heading">
                             <h1>Clean Blog</h1>
                             <span class="subheading">A Blog Theme by Start Bootstrap</span>
+
+                            <div> search your article </div>
+
+                            <!-- <form id="contactForm">
+                                <div class="form-floating">
+                                    <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                    <label for="word">Name</label>
+                                    <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                </div>
+                            </form> -->
                         </div>
                     </div>
                 </div>
@@ -32,7 +42,7 @@
                     <!-- Post preview-->
                     <% for(let i = 0; i < blogPosts.length; i++){ %> 
                     <div class="post-preview">
-                        <a href="/posts/<%= blogPosts[i]._id %> ">
+                        <a href="/post/<%= blogPosts[i]._id %> ">
                             <h2 class="post-title"> <%= blogPosts[i].title %>  </h2>
                             <h3 class="post-subtitle"> <%= blogPosts[i].body %>  </h3>
                         </a>

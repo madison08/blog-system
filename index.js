@@ -21,7 +21,7 @@ app.get('/', async (req, res) =>{
     try{
         const blogPosts = await Blog.find({})
 
-        console.log(blogPosts)
+        // console.log(blogPosts)
 
         res.render('index', {
             blogPosts
@@ -50,11 +50,18 @@ app.get('/about', (req, res) =>{
 })
 
 
-app.get('/post', (req, res) =>{
+app.get('/post/:id', async (req, res) =>{
 
-    res.render('post')
+    const id = req.params.id
+
+    const blog = await Blog.findById(id)
+
+    res.render('post', {
+        blog
+    })
 
 })
+
 
 app.get('/posts/new', (req, res) =>{
 
