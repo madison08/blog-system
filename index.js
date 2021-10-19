@@ -3,12 +3,15 @@ const path = require('path')
 const ejs = require('ejs')
 const mongoose = require('mongoose')
 const Blog = require('./models/BlogSchema')
+const fileUpload = require('express-fileupload')
 
 const app = express()
 
 // ejs templating
 app.set('view engine','ejs' )
 
+// file upload
+app.use(fileUpload())
 
 app.use(express.static('public'))
 app.use(express.json())
@@ -69,17 +72,33 @@ app.get('/posts/new', (req, res) =>{
 
 })
 
-app.post('/posts/store', async (req, res) =>{
+app.post('/posts/store',   (req, res) =>{
+
+    let image = req.files.image
+
+    console.log(image)
+
+    image.mv(path.resolve(__dirname,'public/img',image.name), async (err) =>{
+        await Blog.create(req.body)
+
+        res.redirect('/')
+    })
 
 
 
-    await Blog
-    .create({
-        title: req.body.title,
-        body: req.body.body
-        })
+        // await Blog.create(req.body)
 
-    res.redirect('/')
+        // res.redirect('/')
+
+
+
+    // await Blog
+    // .create({
+    //     title: req.body.title,
+    //     body: req.body.body
+    //     })
+
+    // res.redirect('/')
 
 
 })

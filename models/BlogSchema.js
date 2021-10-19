@@ -9,6 +9,15 @@ const BlogSchema = new Schema({
 
     body:{
         type: String
+    },
+
+    username:{
+        type: String
+    },
+
+    datePosted:{
+        type: Date,
+        default: new Date
     }
 })
 
