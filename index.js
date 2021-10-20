@@ -10,6 +10,11 @@ const newPostController = require('./controllers/newPostController')
 const homeController = require('./controllers/homeController')
 const getSinglePostController = require('./controllers/getSinglePostController')
 const storePostController = require('./controllers/storePostController')
+const registerUserController = require('./controllers/registerUserController')
+const storeUserController = require('./controllers/storeUserController')
+
+//middlewares
+const validationMiddleware = require('./middleware/validationMiddleware')
 
 const app = express()
 
@@ -32,16 +37,7 @@ app.use(express.urlencoded({ extended: true }))
 
 
 
-// app.use('/posts/store',(req, res, next) => {
-
-//     if(req.files == null || req.body.title == null || req.body.body == null){
-//         return res.redirect('/posts/new')
-//     }
-
-//     console.log('hey hey')
-
-//     next()
-// })
+// app.use('/posts/store', validationMiddleware)
 
 
 app.get('/', homeController)
@@ -71,6 +67,10 @@ app.get('/post/:id', getSinglePostController)
 app.get('/posts/new', newPostController)
 
 app.post('/posts/store', storePostController )
+
+app.get('/auth/register', registerUserController)
+
+app.post('/auth/register', storeUserController)
 
 
 const PORT = 4000
