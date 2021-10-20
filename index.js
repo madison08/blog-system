@@ -5,6 +5,12 @@ const mongoose = require('mongoose')
 const Blog = require('./models/BlogSchema')
 const fileUpload = require('express-fileupload')
 
+// controllers
+const newPostController = require('./controllers/newPostController')
+const homeController = require('./controllers/homeController')
+const getSinglePostController = require('./controllers/getSinglePostController')
+const storePostController = require('./controllers/storePostController')
+
 const app = express()
 
 // ejs templating
@@ -24,108 +30,47 @@ app.use(express.urlencoded({ extended: true }))
 //     next()
 // }
 
-app.use('/posts/store',(req, res, next) => {
-
-    if(req.files == null || req.body.title || req.body.body){
-        return res.redirect('/posts/new')
-    }
-
-    console.log('hey hey')
-
-    next()
-})
 
 
-app.get('/', async (req, res) =>{
+// app.use('/posts/store',(req, res, next) => {
+
+//     if(req.files == null || req.body.title == null || req.body.body == null){
+//         return res.redirect('/posts/new')
+//     }
+
+//     console.log('hey hey')
+
+//     next()
+// })
 
 
-    try{
-        const blogPosts = await Blog.find({})
+app.get('/', homeController)
 
-        // console.log(blogPosts)
+// app.get('/contact', (req, res) =>{
 
-        res.render('index', {
-            blogPosts
-        })
+//     res.render('contact')
 
-    }catch(err){
-        console.log(err)
-    }
+// })
 
+// app.get('/about', (req, res) =>{
 
+//     res.render('about')
 
-    
-
-})
-
-app.get('/contact', (req, res) =>{
-
-    res.render('contact')
-
-})
-
-app.get('/about', (req, res) =>{
-
-    res.render('about')
-
-})
+// })
 
 
-app.get('/post/:id', async (req, res) =>{
-
-    const id = req.params.id
-
-    const blog = await Blog.findById(id)
-
-    res.render('post', {
-        blog
-    })
-
-})
+app.get('/post/:id', getSinglePostController)
 
 
-app.get('/posts/new', (req, res) =>{
+// app.get('/posts/new', (req, res) =>{
 
-    res.render('create')
+//     res.render('create')
 
-})
+// })
 
-app.post('/posts/store',   (req, res) =>{
+app.get('/posts/new', newPostController)
 
-    let image = req.files.image
-
-    console.log(image)
-
-    image.mv(path.resolve(__dirname,'public/img',image.name), async (err) =>{
-        await Blog.create({
-            title: req.body.title,
-            body: req.body.body,
-            image: '/img/'+image.name
-        })
-
-
-
-        res.redirect('/')
-    })
-
-
-
-        // await Blog.create(req.body)
-
-        // res.redirect('/')
-
-
-
-    // await Blog
-    // .create({
-    //     title: req.body.title,
-    //     body: req.body.body
-    //     })
-
-    // res.redirect('/')
-
-
-})
+app.post('/posts/store', storePostController )
 
 
 const PORT = 4000
