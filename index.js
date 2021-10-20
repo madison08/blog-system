@@ -18,6 +18,24 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
+// const customValidation = (req, res, next) =>{
+//     console.log('custom middleware')
+
+//     next()
+// }
+
+app.use('/posts/store',(req, res, next) => {
+
+    if(req.files == null || req.body.title || req.body.body){
+        return res.redirect('/posts/new')
+    }
+
+    console.log('hey hey')
+
+    next()
+})
+
+
 app.get('/', async (req, res) =>{
 
 
