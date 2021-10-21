@@ -12,7 +12,7 @@ module.exports = (req, res) =>{
 
             const verifUser = bcrypt.compareSync(password,user.password)
 
-            console.log(verifUser)
+            req.session.userId = user._id
 
 
             if(verifUser){

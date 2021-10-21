@@ -2,8 +2,8 @@ const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
 const mongoose = require('mongoose')
-const Blog = require('./models/BlogSchema')
 const fileUpload = require('express-fileupload')
+const expressSession = require('express-session')
 
 // controllers
 const newPostController = require('./controllers/newPostController')
@@ -17,6 +17,7 @@ const loginUserController = require('./controllers/loginUserController')
 
 //middlewares
 const validationMiddleware = require('./middleware/validationMiddleware')
+const authMiddleware = require('./middleware/authMiddleware')
 
 const app = express()
 
@@ -26,17 +27,14 @@ app.set('view engine','ejs' )
 // file upload
 app.use(fileUpload())
 
+// sessions
+app.use(expressSession({
+    secret: '12C486BBD4A9C'
+}))
+
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-
-// const customValidation = (req, res, next) =>{
-//     console.log('custom middleware')
-
-//     next()
-// }
-
 
 
 // app.use('/posts/store', validationMiddleware)
@@ -44,34 +42,13 @@ app.use(express.urlencoded({ extended: true }))
 
 app.get('/', homeController)
 
-// app.get('/contact', (req, res) =>{
-
-//     res.render('contact')
-
-// })
-
-// app.get('/about', (req, res) =>{
-
-//     res.render('about')
-
-// })
-
-
 app.get('/post/:id', getSinglePostController)
 
-
-// app.get('/posts/new', (req, res) =>{
-
-//     res.render('create')
-
-
-// })
-
-app.get('/posts/new', newPostController)
+app.get('/posts/new', authMiddleware ,newPostController)
 
 app.post('/posts/store', storePostController )
 
-app.get('/auth/register', registerUserController)
+app.get('/auth/register', authMiddleware ,registerUserController)
 
 app.post('/auth/register', storeUserController)
 
