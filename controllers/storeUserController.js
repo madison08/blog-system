@@ -15,6 +15,10 @@ module.exports = (req, res) => {
 
         res.redirect('/')
 
+    }).catch((err) => {
+        console.log(err)
+
+        return res.redirect('/auth/register')
     })
 
     // console.log(req.body)

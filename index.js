@@ -12,6 +12,8 @@ const getSinglePostController = require('./controllers/getSinglePostController')
 const storePostController = require('./controllers/storePostController')
 const registerUserController = require('./controllers/registerUserController')
 const storeUserController = require('./controllers/storeUserController')
+const getLoginController = require('./controllers/getLoginController')
+const loginUserController = require('./controllers/loginUserController')
 
 //middlewares
 const validationMiddleware = require('./middleware/validationMiddleware')
@@ -62,6 +64,7 @@ app.get('/post/:id', getSinglePostController)
 
 //     res.render('create')
 
+
 // })
 
 app.get('/posts/new', newPostController)
@@ -71,6 +74,11 @@ app.post('/posts/store', storePostController )
 app.get('/auth/register', registerUserController)
 
 app.post('/auth/register', storeUserController)
+
+app.get('/auth/login', getLoginController)
+
+
+app.post('/auth/login', loginUserController)
 
 
 const PORT = 4000
