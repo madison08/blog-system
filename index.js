@@ -18,6 +18,9 @@ const loginUserController = require('./controllers/loginUserController')
 //middlewares
 const validationMiddleware = require('./middleware/validationMiddleware')
 const authMiddleware = require('./middleware/authMiddleware')
+const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated')
+
+global.loggedIn = null;
 
 const app = express()
 
@@ -37,6 +40,14 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
+app.use("*", (req, res, next) =>{
+
+    loggedIn = req.session.userId
+
+    next()
+
+})
+
 // app.use('/posts/store', validationMiddleware)
 
 
@@ -48,14 +59,14 @@ app.get('/posts/new', authMiddleware ,newPostController)
 
 app.post('/posts/store', storePostController )
 
-app.get('/auth/register', authMiddleware ,registerUserController)
+app.get('/auth/register', redirectIfAuthenticated ,registerUserController)
 
-app.post('/auth/register', storeUserController)
+app.post('/auth/register', redirectIfAuthenticated ,storeUserController)
 
-app.get('/auth/login', getLoginController)
+app.get('/auth/login', redirectIfAuthenticated ,getLoginController)
 
 
-app.post('/auth/login', loginUserController)
+app.post('/auth/login', redirectIfAuthenticated ,loginUserController)
 
 
 const PORT = 4000
