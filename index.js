@@ -71,6 +71,10 @@ app.post('/auth/login', redirectIfAuthenticated ,loginUserController)
 
 app.get('/auth/logout', userLogoutController)
 
+app.use((req, res) =>{
+    res.render('notFound')
+})
+
 
 const PORT = 4000
 
