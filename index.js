@@ -14,6 +14,7 @@ const registerUserController = require('./controllers/registerUserController')
 const storeUserController = require('./controllers/storeUserController')
 const getLoginController = require('./controllers/getLoginController')
 const loginUserController = require('./controllers/loginUserController')
+const userLogoutController = require('./controllers/userLogoutController')
 
 //middlewares
 const validationMiddleware = require('./middleware/validationMiddleware')
@@ -67,6 +68,8 @@ app.get('/auth/login', redirectIfAuthenticated ,getLoginController)
 
 
 app.post('/auth/login', redirectIfAuthenticated ,loginUserController)
+
+app.get('/auth/logout', userLogoutController)
 
 
 const PORT = 4000
