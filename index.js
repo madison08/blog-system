@@ -4,6 +4,7 @@ const ejs = require('ejs')
 const mongoose = require('mongoose')
 const fileUpload = require('express-fileupload')
 const expressSession = require('express-session')
+const flash = require('connect-flash')
 
 // controllers
 const newPostController = require('./controllers/newPostController')
@@ -35,6 +36,9 @@ app.use(fileUpload())
 app.use(expressSession({
     secret: '12C486BBD4A9C'
 }))
+
+// for flash message
+app.use(flash())
 
 app.use(express.static('public'))
 app.use(express.json())
@@ -71,9 +75,7 @@ app.post('/auth/login', redirectIfAuthenticated ,loginUserController)
 
 app.get('/auth/logout', userLogoutController)
 
-app.use((req, res) =>{
-    res.render('notFound')
-})
+app.use((req, res) => {res.render('notFound') })
 
 
 const PORT = 4000

@@ -6,9 +6,10 @@ module.exports = (req, res) => {
 
     // const passwordHash = bcrypt.hashSync
 
+
     User.create({
         username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: req.body.password ? bcrypt.hashSync(req.body.password, 10) : req.body.password
     }).then((resp) => {
 
         console.log(resp)
@@ -16,7 +17,17 @@ module.exports = (req, res) => {
         res.redirect('/')
 
     }).catch((err) => {
-        console.log(err)
+
+        const validationsErrors = Object.keys(err.errors).map(key => err.errors[key].message)
+
+        // console.log(validationsError)
+
+        // req.session.validationsError = validationsError
+        req.flash('validationErrors', validationsErrors)
+
+        // console.log(resp)
+
+        // console.log(req.session)
 
         return res.redirect('/auth/register')
     })
