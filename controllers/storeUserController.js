@@ -25,6 +25,8 @@ module.exports = (req, res) => {
         // req.session.validationsError = validationsError
         req.flash('validationErrors', validationsErrors)
 
+        req.flash('data', req.body)
+
         // console.log(resp)
 
         // console.log(req.session)

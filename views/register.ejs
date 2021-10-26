@@ -33,14 +33,14 @@
 
                             <form action="/auth/register" method="POST" enctype="multipart/form-data" id="contactForm" data-sb-form-api-token="API_TOKEN">
                                 <div class="form-floating">
-                                    <input class="form-control" id="username" name="username" type="text" placeholder="Enter your username..." data-sb-validations="required" />
+                                    <input class="form-control" value="<%= username %>" id="username" name="username" type="text" placeholder="Enter your username..." data-sb-validations="required" />
                                     <label for="title">Username</label>
                                     <div class="invalid-feedback" data-sb-feedback="name:required">A title is required.</div>
                                 </div>
                                 
                                 
                                 <div class="form-floating">
-                                    <input class="form-control" id="password" name="password" type="text" placeholder="Enter your password..." data-sb-validations="required" />
+                                    <input class="form-control" value="<%= password %>" id="password" name="password" type="text" placeholder="Enter your password..." data-sb-validations="required" />
                                     <label for="title">password</label>
                                     <div class="invalid-feedback" data-sb-feedback="name:required">A title is required.</div>
                                 </div>

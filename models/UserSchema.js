@@ -7,13 +7,15 @@ const UserSchema = new Schema({
 
     username: {
         type: String,
-        required: [true,  'Please provide username'],
+        required: [true, 'Please provide username'],
+        trim: true,
         unique: true,
-        index: true
+        index: true,
     },
     password: {
         type: String,
-        required: [true, 'Please provide password']
+        required: [true, 'Please provide password'],
+        trim: true
     }
 
 })
