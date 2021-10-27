@@ -6,9 +6,11 @@ module.exports = (req, res) =>{
 
     console.log(req.session)
     
-    Blog.find({}).then(resp => {
+    Blog.find({}).populate('userId').then(resp => {
         
         const blogPosts = resp
+
+        // console.log(blogPosts)
 
         res.render('index', {
             blogPosts

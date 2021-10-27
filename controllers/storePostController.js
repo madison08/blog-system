@@ -9,6 +9,7 @@ module.exports = (req, res) =>{
         await Blog.create({
             title: req.body.title,
             body: req.body.body,
+            userId: req.session.userId,
             image: '/img/'+image.name
         })
 
